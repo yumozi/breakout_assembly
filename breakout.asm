@@ -122,19 +122,6 @@ SETUP_DRAW_BRICK:
 INIT_PADDLE:
 	li $s0, 56	# x-coordinate of the paddle
 	li $s1, 63	# y-coodinate of the paddle
-
-	li $a0, 0	
-	li $a1, 0
-	add $a0, $a0, $s0
-	add $a1, $a1, $s1
-		
-	# Set the offset from the base address
-	
-	li $t5, 0	# $t5, Inner loop of Draw Row
-	li $t6, 15	# $t6 + 1 indicate the lenght of the paddle
-	
-		
-	# $a0, x coordinat of paddle, $a1, y coordinate of paddle
 	jal DRAW_PADDLE
 	
 INIT_BALL:
@@ -152,19 +139,26 @@ INIT_BALL:
 	j game_loop	
 
 
-# DRAW_PADDLE(x coordinate of most left pixel, y coordinate of most left pixel)
-# Draws a 16 x 1 paddle
+# DRAW_PADDLE()
+# DRAW a 16 x 1 paddle
 DRAW_PADDLE:
 	la $t1, COLOR
-	lw $t1, 24($t1)	# $t1, Color of paddle
+	lw $t1, 24($t1)	# $t1, color black
 
 	la $t0, ADDR_DSPL
 	lw $t0, 0($t0)	
 	
-	sll $a0, $a0, 2
-	sll $a1, $a1, 9
-	add $t0, $t0, $a0
-	add $t0, $t0, $a1
+	li $t5, 0	# $t5, Inner loop of Draw Row
+	li $t6, 15	# $t6 + 1 indicate the lenght of the paddle
+	
+	# set t2, t3 to x, y location of paddle
+	addi $t2, $s0, 0
+	addi $t3, $s1, 0
+	
+	sll $t2, $t2, 2
+	sll $t3, $t3, 9
+	add $t0, $t0, $t2
+	add $t0, $t0, $t3
 DRAW_PADDLE_LOOP:
 	slt $t7, $t5, $t6 # $t7 store the result for $t0 < $t1
 	beq $t7, $0, END_DRAW_PADDLE
@@ -174,6 +168,38 @@ DRAW_PADDLE_LOOP:
 	addi $t5, $t5, 1 # i = i + 1
 	j DRAW_PADDLE_LOOP
 END_DRAW_PADDLE:
+	jr $ra	
+	
+
+# DELETE_PADDLE()
+# Delete a 16 x 1 paddle by painting it black
+DELETE_PADDLE:
+	la $t1, COLOR
+	lw $t1, 32($t1)	# $t1, color black
+
+	la $t0, ADDR_DSPL
+	lw $t0, 0($t0)	
+	
+	li $t5, 0	# $t5, Inner loop of Draw Row
+	li $t6, 15	# $t6 + 1 indicate the lenght of the paddle
+	
+	# set t2, t3 to x, y location of paddle
+	addi $t2, $s0, 0
+	addi $t3, $s1, 0
+	
+	sll $t2, $t2, 2
+	sll $t3, $t3, 9
+	add $t0, $t0, $t2
+	add $t0, $t0, $t3
+DELETE_PADDLE_LOOP:
+	slt $t7, $t5, $t6 # $t7 store the result for $t0 < $t1
+	beq $t7, $0, END_DELETE_PADDLE
+		# LOOP BODY
+		sw $t1, 0($t0)	# put color to the address
+		addi $t0, $t0, 4 # go to the next unit
+	addi $t5, $t5, 1 # i = i + 1
+	j DELETE_PADDLE_LOOP
+END_DELETE_PADDLE:
 	jr $ra	
 
 
@@ -307,7 +333,37 @@ END_DRAW_LINE_BRICK:
 END_DRAW_BRICK:		
 	jr $ra
 	
-
+# MOVE_PADDLE_LEFT()
+# Moves paddle left one pixel
+MOVE_PADDLE_LEFT:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)	
+	
+	jal DELETE_PADDLE
+	
+	addi $s0, $s0, -1
+	jal DRAW_PADDLE
+	
+END_MOVE_PADDLE_LEFT:
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4 
+	jr $ra
+	
+# MOVE_PADDLE_RIGHT()
+# Moves paddle right one pixel
+MOVE_PADDLE_RIGHT:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)	
+	
+	jal DELETE_PADDLE
+	
+	addi $s0, $s0, 1
+	jal DRAW_PADDLE
+	
+END_MOVE_PADDLE_RIGHT:
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4 
+	jr $ra
 
 	
 game_loop:
@@ -327,16 +383,20 @@ game_loop:
 
 on_keyboard_input:                  	# A key is pressed
 	lw $a0, 4($t0)                  # Load second word from keyboard
-	beq $a0, 0x71, END     		# IF q pressed, END
-	beq $a0, 0x61, END     		# IF a pressed, move paddle left
-	beq $a0, 0x64, END 		# IF d pressed, move paddle right
+	
+	beq $a0, 0x71, END    		# IF q pressed, END
+	
+IF_A_PRESSED:
+	bne $a0, 0x61, IF_D_PRESSED     # IF a didn't get pressed, go to next IF
+	jal MOVE_PADDLE_LEFT
 
-	li $v0, 1                       # ask system to print $a0
-	syscall
+IF_D_PRESSED:
+	bne $a0, 0x64, IF_NO_CHANGE 	# IF d didn't get pressed, go to next section
+	jal MOVE_PADDLE_RIGHT
 
-	b main
-
-    
+IF_NO_CHANGE:
+	b game_loop
+ 
 END:	
 	li $v0, 10			# Quit gracefully
 	syscall
