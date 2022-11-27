@@ -16,7 +16,9 @@
 # $s1- the y coofinate of the paddle
 # $s2- the x coordinate of the ball
 # $s3- the y coofinate of the ball
-# $s4- direction of ball
+# $s4- the x direction of the ball (1 = left, -1 = right)
+# $s5- the y direction of the ball (1 = down, -1 = up)
+# $s6 - ball counter
 
     .data
 COLOR: 
@@ -126,7 +128,9 @@ INIT_PADDLE:
 INIT_BALL:
 	li $s2, 64
 	li $s3, 60
-	li $s4, 45
+	li $s4, 1
+	li $s5, -1
+	li $s6, 0
 	jal DRAW_BALL
 	
 	j game_loop	
@@ -367,32 +371,89 @@ MOVE_BALL:
 	
 	jal DELETE_BALL
 	
-	beq $s4, 0x45, DEGREE_45
-	beq $s4, 0x135, DEGREE_135
-	beq $s4, 0x225, DEGREE_225
-	beq $s4, 0x315, DEGREE_315
-DEGREE_45:
-	addi $s2, $s2, 1
-	addi $s3, $s3, -1
-	j REDRAW_BALL
-DEGREE_135:
-	addi $s2, $s2, -1
-	addi $s3, $s3, 1
-	j REDRAW_BALL
-DEGREE_225:
-	addi $s2, $s2, -1
-	addi $s3, $s3, -1
-	j REDRAW_BALL
-DEGREE_315:
-	addi $s2, $s2, 1
-	addi $s3, $s3, 1
-	j REDRAW_BALL
-REDRAW_BALL:
+	add $s2, $s2, $s4	# add x direction to x coordinate
+	add $s3, $s3, $s5	# add y direction to y coordinate
 	jal DRAW_BALL
 	
 END_MOVE_BALL:
 	lw $ra, 0($sp)
 	addi $sp, $sp, 4 
+	jr $ra
+	
+# CHECK_BALL_COLLISION()
+# Checks the collision of ball and change its direction (will be reflected in the next screen update)
+CHECK_BALL_COLLISION:
+	la $t0, ADDR_DSPL
+	lw $t0, 0($t0)	
+	
+CHECK_TOP:
+	addi $t2, $s2, 0
+	addi $t3, $s3, 0
+	addi $t4, $t0, 0
+	
+	addi $t3, $t3, -1
+	
+	sll $t2, $t2, 2
+	sll $t3, $t3, 9
+	add $t4, $t4, $t2
+	add $t4, $t4, $t3		# $t4 is the pixel address above ball
+	lw $t4, 0($t4)			# $t4 is the color of pixel above ball
+	
+	beq $t4, 0x000000, CHECK_BOTTOM	# If top is empty (black), check bottom
+	
+	mul $s5, $s5, -1
+	
+CHECK_BOTTOM:
+	addi $t2, $s2, 0
+	addi $t3, $s3, 0
+	addi $t4, $t0, 0
+	
+	addi $t3, $t3, 1
+	
+	sll $t2, $t2, 2
+	sll $t3, $t3, 9
+	add $t4, $t4, $t2
+	add $t4, $t4, $t3		# $t4 is the pixel address below ball
+	lw $t4, 0($t4)			# $t4 is the color of pixel below ball
+	
+	beq $t4, 0x000000, CHECK_LEFT	# If bottom is empty (black), check left
+	
+	mul $s5, $s5, -1
+	
+CHECK_LEFT:
+	addi $t2, $s2, 0
+	addi $t3, $s3, 0
+	addi $t4, $t0, 0
+
+	addi $t2, $t2, -1
+	
+	sll $t2, $t2, 2
+	sll $t3, $t3, 9
+	add $t4, $t4, $t2
+	add $t4, $t4, $t3		# $t4 is the pixel address to the left of ball
+	lw $t4, 0($t4)			# $t4 is the color of pixel to the left of ball
+	
+	beq $t4, 0x000000, CHECK_RIGHT	# If left is empty (black), check right
+	
+	mul $s4, $s4, -1
+	
+CHECK_RIGHT:
+	addi $t2, $s2, 0
+	addi $t3, $s3, 0
+	addi $t4, $t0, 0
+
+	addi $t2, $t2, 1
+	
+	sll $t2, $t2, 2
+	sll $t3, $t3, 9
+	add $t4, $t4, $t2
+	add $t4, $t4, $t3			# $t4 is the pixel address to the right of ball
+	lw $t4, 0($t4)				# $t4 is the color of pixel to the right of ball
+	
+	beq $t4, 0x000000, END_CHECK_COLLISION	# If right is empty (black), end
+	
+	mul $s4, $s4, -1
+END_CHECK_COLLISION:
 	jr $ra
 
 	
@@ -408,7 +469,15 @@ game_loop:
 	lw $t0, ADDR_KBRD               # $t0 = base address for keyboard
 	lw $t8, 0($t0)                  # Load first word from keyboard
 	beq $t8, 1, on_keyboard_input   # If first word 1, key is pressed
-	jal MOVE_BALL	
+	
+	
+	addi $s6, $s6, 1
+	bne $s6, 50, AFTER_MOVE_BALL # move the ball every 10 iterations
+	jal MOVE_BALL
+	beq $s2, 63, END # IF ball touching bottom of screen, end game
+	jal CHECK_BALL_COLLISION
+	li $s6, 0
+AFTER_MOVE_BALL:
 	b game_loop
 
 
@@ -422,10 +491,10 @@ IF_A_PRESSED:
 	jal MOVE_PADDLE_LEFT
 
 IF_D_PRESSED:
-	bne $a0, 0x64, OTHER 	# IF d didn't get pressed, go to next section
+	bne $a0, 0x64, OTHER_KEY	# IF d didn't get pressed, go to next section
 	jal MOVE_PADDLE_RIGHT
 
-OTHER:
+OTHER_KEY:
 	b game_loop
  
 END:	
