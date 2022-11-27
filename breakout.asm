@@ -19,7 +19,6 @@
 # $s4- dx of the ball
 # $s5- dy of the ball
 
-
     .data
 COLOR: 
 	.word 0xcccccc # Grey
@@ -31,8 +30,7 @@ COLOR:
 	.word 0xfff68f # color of paddle
 	.word 0xffffff
 	.word 0x000000
-	
-	
+
 ##############################################################################
 # Immutable Data
 ##############################################################################
@@ -55,13 +53,13 @@ ADDR_KBRD:
 
 	# Run the Brick Breaker game.
 main:
-    # Initialize the game
+# Initialize the game
  
- # DRAW_LINE_IN_ROWS use to initialize the top row walls
- # Data of the top wall rows: 4 UNIT high
- jal DRAW_LINE_IN_ROWS
+# DRAW_LINE_IN_ROWS use to initialize the top row walls
+# Data of the top wall rows: 4 UNIT high
+	jal DRAW_UPPER_WALL
  
- # Preperation for drawing the LEFT and RIGHT column walls
+# Preperation for drawing the LEFT and RIGHT column walls
 	li $t0, 0
 	li $t1, 64
 	la $a0, ADDR_DSPL	
@@ -72,9 +70,7 @@ main:
 	li $t4, 0
 	li $t5, 3
 
-    	jal DRAW_LINE_IN_COLUMNS
- 
-	
+    	jal DRAW_SIDE_WALLS
 	
 # DRAW the brick in the middle
 SETUP_DRAW_BRICK:
@@ -86,7 +82,7 @@ SETUP_DRAW_BRICK:
 	la $a2, COLOR		
 	lw $a2, 4($a2)		# color of the first brick
 	
-	jal DRAW_BRICKS
+	jal DRAW_BRICK
 	
 	addi $t9, $t9, 2	# Draw the next line
 	
@@ -95,17 +91,16 @@ SETUP_DRAW_BRICK:
 	la $a2, COLOR	 	# color of the brick
 	lw $a2, 8($a2)
 	
-	jal DRAW_BRICKS
+	jal DRAW_BRICK
 	
 	addi $t9, $t9, 2
-	
 	
 	li $a0, 12		# x coordinate third
 	addi $a1, $t9, 0	# y coordinate
 	la $a2, COLOR		# color of the brick
 	lw $a2, 12($a2)
 	
-	jal DRAW_BRICKS
+	jal DRAW_BRICK
 	
 	addi $t9, $t9, 2
 
@@ -113,7 +108,7 @@ SETUP_DRAW_BRICK:
 	addi $a1, $t9, 0	# y coordinate	fourth
 	la $a2, COLOR		# color of the brick
 	lw $a2, 16($a2)
-	jal DRAW_BRICKS
+	jal DRAW_BRICK
 	
 	addi $t9, $t9, 2
 	
@@ -122,11 +117,8 @@ SETUP_DRAW_BRICK:
 	la $a2, COLOR		# color of the brick
 	lw $a2, 20($a2)
 	
-	
-	jal DRAW_BRICKS	
-	
+	jal DRAW_BRICK
 
-		
 INIT_PADDLE:
 	li $s0, 56	# x-coordinate of the paddle
 	li $s1, 63	# y-coodinate of the paddle
@@ -136,16 +128,14 @@ INIT_PADDLE:
 	add $a0, $a0, $s0
 	add $a1, $a1, $s1
 		
-# Set the offset from the base address
+	# Set the offset from the base address
 	
 	li $t5, 0	# $t5, Inner loop of Draw Row
 	li $t6, 15	# $t6 + 1 indicate the lenght of the paddle
 	
 		
-# $a0, x coordinat of paddle, $a1, y coordinate of paddle
+	# $a0, x coordinat of paddle, $a1, y coordinate of paddle
 	jal DRAW_PADDLE
-	
-	
 	
 INIT_BALL:
 	li $s2, 64
@@ -159,11 +149,11 @@ INIT_BALL:
 	li $s2, 64
 	li $s3, 60
 	
-	j END	
+	j game_loop	
 
 
-
-# $a0: most left x coordinate of the paddle, $a1, most left y coordinate of the paddle
+# DRAW_PADDLE(x coordinate of most left pixel, y coordinate of most left pixel)
+# Draws a 16 x 1 paddle
 DRAW_PADDLE:
 	la $t1, COLOR
 	lw $t1, 24($t1)	# $t1, Color of paddle
@@ -175,9 +165,7 @@ DRAW_PADDLE:
 	sll $a1, $a1, 9
 	add $t0, $t0, $a0
 	add $t0, $t0, $a1
-	
 DRAW_PADDLE_LOOP:
-	
 	slt $t7, $t5, $t6 # $t7 store the result for $t0 < $t1
 	beq $t7, $0, END_DRAW_PADDLE
 		# LOOP BODY
@@ -185,13 +173,12 @@ DRAW_PADDLE_LOOP:
 		addi $t0, $t0, 4 # go to the next unit
 	addi $t5, $t5, 1 # i = i + 1
 	j DRAW_PADDLE_LOOP
-	
 END_DRAW_PADDLE:
 	jr $ra	
-	
-	
 
-# $a0, x coodinate of ball, $a1, y coordinate of ball, draw ball with white color 		
+
+# DRAW_BALL(x, y)
+# Draws a 1 x 1 ball with white color		
 DRAW_BALL:
 	la $t1, COLOR
 	lw $t1, 28($t1)
@@ -209,7 +196,8 @@ DRAW_BALL:
 	jr $ra
 		
 
-# $a0, x of ball, $a1, y of ball, draw ball with black						
+# DELETE_BALL(x, y)
+# Deletes a ball by painting it black			
 DELETE_BALL:
 	la $t1, COLOR
 	lw $t1, 32($t1)
@@ -225,12 +213,12 @@ DELETE_BALL:
 	
 	sw $t1, 0($t0) 
 		
-	jr $ra
-				
-																		
-							
-								
-DRAW_LINE_IN_ROWS:
+	jr $ra		
+
+																
+# DRAW_UPPER_WALL()
+# Draws 4 rows of gray lines as upper wall
+DRAW_UPPER_WALL:
 	la $t7, ADDR_DSPL	
 	lw $t7, 0($t7)	#$a0 stores the first piexl address
 	
@@ -241,8 +229,6 @@ DRAW_LINE_IN_ROWS:
 	
 	li $t4, 0 # Write 5 row
 	li $t5, 3 # Track the outer loop j
-	
-	
 DRAW_LINE_IN_ROW:
 	slt $t3, $t0, $t1 # $t3 store the result for $t0 < $t1
 	beq $t3, $0, END_DRAW_ROW_LINE # If draw done return to the END_DRAW_ROW_LINE
@@ -251,31 +237,30 @@ DRAW_LINE_IN_ROW:
 		addi $t7, $t7, 4 # go to the next unit
 	addi $t0, $t0, 1 # i = i + 1
 	b DRAW_LINE_IN_ROW
-
 END_DRAW_ROW_LINE:
 	li $t0, 0   # Track which unit are we right now, i	
 	slt $t6, $t4, $t5
-	beq $t6, $0, END_DRAW_ROWS	
+	beq $t6, $0, END_DRAW_UPPER_WALL	
 		addi $t4, $t4, 1
 		j DRAW_LINE_IN_ROW	
-
-END_DRAW_ROWS: 
+END_DRAW_UPPER_WALL: 
 	jr $ra										
 
 			
-																
-DRAW_LINE_IN_COLUMNS:
-DRAW_LINE_IN_LEFT_COLUMN:
+# DRAW_SIDE_WALLS()
+# Draws two walls on the left and right side of screen												
+DRAW_SIDE_WALLS:
+DRAW_LINE_IN_LEFT_AND_RIGHT_COLUMN:
 	slt $t3, $t0, $t1 # $t3 store the result for $t0 < $t1
-	beq $t3, $0, END_DRAW_LEFT_ROW_COLUMN # If draw done return to the END_DRAW_ROW_LINE
+	beq $t3, $0, END_DRAW_LEFT_AND_RIGHT_COLUMN # If draw done return to the END_DRAW_ROW_LINE
 		# LOOP BODY
 		sw $s0, 0($a0)	# put grey on the address
 		sw $s0, 496($a0)
 		addi $a0, $a0, 512 # go to the next unit
 	addi $t0, $t0, 1 # i = i + 1
-	b DRAW_LINE_IN_LEFT_COLUMN
+	b DRAW_LINE_IN_LEFT_AND_RIGHT_COLUMN
 	
-END_DRAW_LEFT_ROW_COLUMN:
+END_DRAW_LEFT_AND_RIGHT_COLUMN:
 	la $a0, ADDR_DSPL	
 	lw $a0, 0($a0)	#$a0 stores the second piexl address
 	addi $t7, $t7, 1
@@ -283,17 +268,16 @@ END_DRAW_LEFT_ROW_COLUMN:
 	add $a0, $a0, $t8
 	li $t0, 0
 	slt $t6, $t4, $t5
-	beq $t6, $0, END_DRAW_LEFT_COLUMNS
+	beq $t6, $0, END_DRAW_SIDE_WALLS
 		addi $t4, $t4, 1
-		j DRAW_LINE_IN_LEFT_COLUMN	
-END_DRAW_LEFT_COLUMNS:
+		j DRAW_LINE_IN_LEFT_AND_RIGHT_COLUMN
+END_DRAW_SIDE_WALLS:
 	jr $ra
 	
 	
-	
-# $a0, x of the most left brick , $a1, y of the most left brick
-DRAW_BRICKS:
-
+# DRAW_BRICK(x of top left corner, y of top left corner, color)
+# Draws a line of bricks using the give color
+DRAW_BRICK:
 	la $t0, ADDR_DSPL # $t0 is the first address of the brick
 	lw $t0, 0($t0)	
 	sll $a0, $a0, 2
@@ -313,15 +297,14 @@ DRAW_LINE_BRICK:
 		addi $t0, $t0, 4 # go to the next unit
 	addi $t5, $t5, 1 # i = i + 1
 	b DRAW_LINE_BRICK
-
 END_DRAW_LINE_BRICK:
 	addi $t0, $t0, 96
 	li $t5, 0
 	slt $t8, $t3, $t4
-	beq $t8, $0, END_DRAW_ONE_BRICK
+	beq $t8, $0, END_DRAW_BRICK
 		addi $t3, $t3, 1
 		j DRAW_LINE_BRICK
-END_DRAW_ONE_BRICK:		
+END_DRAW_BRICK:		
 	jr $ra
 	
 
