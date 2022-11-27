@@ -16,8 +16,7 @@
 # $s1- the y coofinate of the paddle
 # $s2- the x coordinate of the ball
 # $s3- the y coofinate of the ball
-# $s4- dx of the ball
-# $s5- dy of the ball
+# $s4- direction of ball
 
     .data
 COLOR: 
@@ -127,14 +126,8 @@ INIT_PADDLE:
 INIT_BALL:
 	li $s2, 64
 	li $s3, 60
-	
-	li $a0, 0
-	li $a1, 0
-	add $a0, $a0, $s2
-	add $a1, $a1, $s3
+	li $s4, 45
 	jal DRAW_BALL
-	li $s2, 64
-	li $s3, 60
 	
 	j game_loop	
 
@@ -203,7 +196,7 @@ END_DELETE_PADDLE:
 	jr $ra	
 
 
-# DRAW_BALL(x, y)
+# DRAW_BALL()
 # Draws a 1 x 1 ball with white color		
 DRAW_BALL:
 	la $t1, COLOR
@@ -213,8 +206,8 @@ DRAW_BALL:
 	lw $t0, 0($t0)	
 	
 	
-	sll $t2, $a0, 2
-	sll $t3, $a1, 9
+	sll $t2, $s2, 2
+	sll $t3, $s3, 9
 	add $t0, $t0, $t2
 	add $t0, $t0, $t3
 	
@@ -222,7 +215,7 @@ DRAW_BALL:
 	jr $ra
 		
 
-# DELETE_BALL(x, y)
+# DELETE_BALL()
 # Deletes a ball by painting it black			
 DELETE_BALL:
 	la $t1, COLOR
@@ -231,9 +224,8 @@ DELETE_BALL:
 	la $t0, ADDR_DSPL
 	lw $t0, 0($t0)	
 	
-	
-	sll $t2, $a0, 2
-	sll $t3, $a1, 9
+	sll $t2, $s2, 2
+	sll $t3, $s3, 9
 	add $t0, $t0, $t2
 	add $t0, $t0, $t3
 	
@@ -364,6 +356,44 @@ END_MOVE_PADDLE_RIGHT:
 	lw $ra, 0($sp)
 	addi $sp, $sp, 4 
 	jr $ra
+	
+	
+	
+# MOVE_BALL()
+# Moves ball once based on its direction
+MOVE_BALL:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)	
+	
+	jal DELETE_BALL
+	
+	beq $s4, 0x45, DEGREE_45
+	beq $s4, 0x135, DEGREE_135
+	beq $s4, 0x225, DEGREE_225
+	beq $s4, 0x315, DEGREE_315
+DEGREE_45:
+	addi $s2, $s2, 1
+	addi $s3, $s3, -1
+	j REDRAW_BALL
+DEGREE_135:
+	addi $s2, $s2, -1
+	addi $s3, $s3, 1
+	j REDRAW_BALL
+DEGREE_225:
+	addi $s2, $s2, -1
+	addi $s3, $s3, -1
+	j REDRAW_BALL
+DEGREE_315:
+	addi $s2, $s2, 1
+	addi $s3, $s3, 1
+	j REDRAW_BALL
+REDRAW_BALL:
+	jal DRAW_BALL
+	
+END_MOVE_BALL:
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4 
+	jr $ra
 
 	
 game_loop:
@@ -378,6 +408,7 @@ game_loop:
 	lw $t0, ADDR_KBRD               # $t0 = base address for keyboard
 	lw $t8, 0($t0)                  # Load first word from keyboard
 	beq $t8, 1, on_keyboard_input   # If first word 1, key is pressed
+	jal MOVE_BALL	
 	b game_loop
 
 
@@ -391,10 +422,10 @@ IF_A_PRESSED:
 	jal MOVE_PADDLE_LEFT
 
 IF_D_PRESSED:
-	bne $a0, 0x64, IF_NO_CHANGE 	# IF d didn't get pressed, go to next section
+	bne $a0, 0x64, OTHER 	# IF d didn't get pressed, go to next section
 	jal MOVE_PADDLE_RIGHT
 
-IF_NO_CHANGE:
+OTHER:
 	b game_loop
  
 END:	
