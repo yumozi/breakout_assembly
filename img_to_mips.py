@@ -26,7 +26,7 @@ def read_img_vector():
             vec.append(img[y, x].tolist())
 
     return vec
-
+    
 def generate_small_img_code(vec):
     """ 
     Generate code to display 256 x 128 image on 512 x 256 screen.
