@@ -1580,13 +1580,12 @@ game_loop:
 	li $a0, 0
 	li $a1, 0
 	li $a2, 0x000000
-	jal ANIMATION
 	
 	
 	
 ############################
 # cheat program, comment the next line for stop cheating
-	 jal CHEAT_FOLLOW
+	jal CHEAT_FOLLOW
 
 ############################
 	# IF ball touching bottom of screen, end game
@@ -1752,12 +1751,48 @@ END_WITH_LOOSE:
 	lw $a1, 0($a1)
 
 	jal DRAW_LIVES_DISPLAY
+	
+	jal ANIMATION_YOU_LOSE
+	li $a0, 500
+	li $v0, 32
+	syscall
+	jal ANIMATION_YOU_LOSE_BROKEN
+	li $a0, 500
+	li $v0, 32
+	syscall
+	jal ANIMATION_YOU_LOSE
+	li $a0, 500
+	li $v0, 32
+	syscall
+	jal ANIMATION_YOU_LOSE_BROKEN
+	li $a0, 500
+	li $v0, 32
+	syscall
+	jal ANIMATION_YOU_LOSE
 
 	li $v0, 10			# Quit gracefully
 	syscall
 
 
 END_WITH_WIN:
+	jal ANIMATION_YOU_WIN
+	li $a0, 500
+	li $v0, 32
+	syscall
+	jal ANIMATION_YOU_WIN_SPARKLE
+	li $a0, 500
+	li $v0, 32
+	syscall
+	jal ANIMATION_YOU_WIN
+	li $a0, 500
+	li $v0, 32
+	syscall
+	jal ANIMATION_YOU_WIN_SPARKLE
+	li $a0, 500
+	li $v0, 32
+	syscall
+	jal ANIMATION_YOU_WIN
+	
 	li $v0, 31
 	li $a0, 61
 	li $a1, 50000
@@ -1844,2057 +1879,8223 @@ END_DRAW_SQUARE_INNER_LOOP:
 END_DRAW_SQUARE:
 	jr $ra	
 	
-ANIMATION:
+ANIMATION_YOU_WIN:
 	addi $sp, $sp, -4
 	sw $ra, 0($sp)
 	li $a0, 0
 	li $a1, 0
-	li $a2, 0xd6d48a
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 0
-	li $a2, 0x8f8f47
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 0
-	li $a2, 0xbcbf7c
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 0
-	li $a2, 0xf6f5bd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 0
-	li $a2, 0xd8ceaa
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 0
-	li $a2, 0xcbb88d
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 0
-	li $a2, 0xfbe197
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 0
-	li $a2, 0xddc16e
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 0
-	li $a2, 0xe5c884
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 0
-	li $a2, 0xffe9b8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 0
-	li $a2, 0xdfd3b9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 0
-	li $a2, 0xcfcbc2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 0
-	li $a2, 0xfcf7fe
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 0
-	li $a2, 0xfaf2ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 0
-	li $a2, 0xfceaf8
+	li $a2, 0xfff8e4
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 0
-	li $a2, 0xebdbdb
+	li $a2, 0xfdf1ce
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 0
-	li $a2, 0xc9c8a9
+	li $a2, 0xfeedbd
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 0
-	li $a2, 0xd5cf9b
+	li $a2, 0xfff5da
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 0
-	li $a2, 0xc5a568
+	li $a2, 0xfef0ca
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 0
-	li $a2, 0xedcb8b
+	li $a2, 0xfef9eb
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 0
-	li $a2, 0xe0cd92
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 0
-	li $a2, 0xf5ebb0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 0
-	li $a2, 0xf3e3a5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 0
-	li $a2, 0xd3c086
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 0
-	li $a2, 0xdcc496
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 0
-	li $a2, 0xf4dbbc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 0
-	li $a2, 0xb49a8d
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 0
-	li $a2, 0x988d93
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 0
-	li $a2, 0xccdbfc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 0
-	li $a2, 0x9eb5d7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 0
-	li $a2, 0xb0b9ca
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 0
-	li $a2, 0x8f9299
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 4
-	li $a2, 0xeee2bc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 4
-	li $a2, 0xe1d7b4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 4
-	li $a2, 0xbdb797
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 4
-	li $a2, 0xc9c1ac
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 4
-	li $a2, 0xfeede5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 4
-	li $a2, 0xfee8da
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 4
-	li $a2, 0xfbe0b5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 4
-	li $a2, 0xffe8b1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 4
-	li $a2, 0xf3dcaa
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 4
-	li $a2, 0xe9d6b5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 4
-	li $a2, 0xc5bdb2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 4
-	li $a2, 0xedebee
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 4
-	li $a2, 0xeaeaf2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 4
-	li $a2, 0xe7e4ef
+	li $a2, 0xfff4d3
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 4
-	li $a2, 0xf3e7f3
+	li $a2, 0xfdce4b
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 4
-	li $a2, 0xf7edee
+	li $a2, 0xfcc31f
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 4
-	li $a2, 0xe8e7d2
+	li $a2, 0xfdc31e
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 4
-	li $a2, 0xb9b58f
+	li $a2, 0xfcc422
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 4
-	li $a2, 0xdec99a
+	li $a2, 0xfcc425
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 4
-	li $a2, 0xeed7a5
+	li $a2, 0xfdeab3
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 4
-	li $a2, 0xf8ebbf
+	li $a2, 0xfffffe
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 4
-	li $a2, 0xd4cba0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 4
-	li $a2, 0xb1a679
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 4
-	li $a2, 0xcbbe94
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 4
-	li $a2, 0xccbd9e
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 4
-	li $a2, 0xa49484
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 4
-	li $a2, 0x716161
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 4
-	li $a2, 0x968e9d
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 4
-	li $a2, 0xc4cdea
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 4
-	li $a2, 0x5c6a87
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 4
-	li $a2, 0x515561
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 4
-	li $a2, 0xa5a6aa
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 8
-	li $a2, 0xefd0f2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 8
-	li $a2, 0xffe6ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 8
-	li $a2, 0xbb9eca
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 8
-	li $a2, 0xad91c1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 8
-	li $a2, 0xf8dcff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 8
-	li $a2, 0xffe6ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 8
-	li $a2, 0xd5bacd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 8
-	li $a2, 0xdac1c4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 8
-	li $a2, 0xe2d1c7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 8
-	li $a2, 0xf9f0e9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 8
-	li $a2, 0xdedded
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 8
-	li $a2, 0xdfe4fa
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 8
-	li $a2, 0xf0f8ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 8
-	li $a2, 0xe8eff7
+	li $a2, 0xfff5da
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 8
-	li $a2, 0xf9fbff
+	li $a2, 0xfcc731
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 8
-	li $a2, 0xf0f1f6
+	li $a2, 0xfcc527
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 8
-	li $a2, 0xe9e9e7
+	li $a2, 0xfcc21b
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 8
-	li $a2, 0xeef0e3
+	li $a2, 0xfcc21c
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 8
-	li $a2, 0xf4f5e3
+	li $a2, 0xfdc21e
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 8
-	li $a2, 0xfefde9
+	li $a2, 0xfeeab0
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 8
-	li $a2, 0xcecbbc
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 8
-	li $a2, 0x9f9b8f
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 8
-	li $a2, 0x928e83
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 8
-	li $a2, 0xcacac2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 8
-	li $a2, 0xf0f1f3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 8
-	li $a2, 0xe6eaf5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 8
-	li $a2, 0xc5c7de
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 8
-	li $a2, 0xc2c2de
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 8
-	li $a2, 0xbab8d0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 8
-	li $a2, 0x8a8798
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 8
-	li $a2, 0x8d888c
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 8
-	li $a2, 0xaeaaa7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 12
-	li $a2, 0xbf95dd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 12
-	li $a2, 0xd5abf5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 12
-	li $a2, 0xc39ceb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 12
-	li $a2, 0xc09aed
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 12
-	li $a2, 0xba99ea
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 12
-	li $a2, 0xbda1eb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 12
-	li $a2, 0xab93cd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 12
-	li $a2, 0x9787ae
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 12
-	li $a2, 0xc0b9c9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 12
-	li $a2, 0xdad9e9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 12
-	li $a2, 0xc9cdf2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 12
-	li $a2, 0xc2caee
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 12
-	li $a2, 0xdae6f6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 12
-	li $a2, 0xc3d0d6
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 12
-	li $a2, 0xd9e1ec
+	li $a2, 0xfeefc2
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 12
-	li $a2, 0xd6dce8
+	li $a2, 0xfcc835
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 12
-	li $a2, 0xc3c5d2
+	li $a2, 0xfcc72b
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 12
-	li $a2, 0xcdd1dc
+	li $a2, 0xfcc21b
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 12
-	li $a2, 0xf7ffff
+	li $a2, 0xfef0c7
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 12
-	li $a2, 0xe7f3f3
+	li $a2, 0xfffcf3
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 12
-	li $a2, 0xd1d6d2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 12
-	li $a2, 0xc5c9ca
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 12
-	li $a2, 0xbdc5d0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 12
-	li $a2, 0xe8f8ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 12
-	li $a2, 0xf0ffff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 12
-	li $a2, 0xeaffff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 12
-	li $a2, 0xbdd1f4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 12
-	li $a2, 0xc9d7f4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 12
-	li $a2, 0xd4d4e0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 12
-	li $a2, 0xc5bcbf
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 12
-	li $a2, 0xc8bebd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 12
-	li $a2, 0x887e7d
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 16
-	li $a2, 0xb387d2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 16
-	li $a2, 0xa97fcb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 16
-	li $a2, 0xae83d5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 16
-	li $a2, 0xbf99ee
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 16
-	li $a2, 0xa887de
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 16
-	li $a2, 0xb19aec
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 16
-	li $a2, 0xb3a7ef
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 16
-	li $a2, 0x9693cc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 16
-	li $a2, 0xb1b7db
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 16
-	li $a2, 0xafb8d7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 16
-	li $a2, 0xacb3e1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 16
-	li $a2, 0xcad2f9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 16
-	li $a2, 0xb2bbcc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 16
-	li $a2, 0xb8c3c9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 16
-	li $a2, 0xccd6e0
+	li $a2, 0xfff7e1
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 16
-	li $a2, 0xc9cee1
+	li $a2, 0xfcc830
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 16
-	li $a2, 0xb5b4d3
+	li $a2, 0xfcc423
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 16
-	li $a2, 0xb3b4d3
+	li $a2, 0xfbc628
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 16
-	li $a2, 0xd6e1f5
+	li $a2, 0xfeecb7
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 16
-	li $a2, 0xf5ffff
+	li $a2, 0xfffffe
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 16
-	li $a2, 0xe0e7df
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 16
-	li $a2, 0xc5d2cb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 16
-	li $a2, 0xaec9da
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 16
-	li $a2, 0xc1e4ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 16
-	li $a2, 0xdcfeff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 16
-	li $a2, 0xd4f7ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 16
-	li $a2, 0xb8e1ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 16
-	li $a2, 0xd5f7ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 16
-	li $a2, 0xf7fff9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 16
-	li $a2, 0xc4c1b2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 16
-	li $a2, 0xab9f9f
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 16
-	li $a2, 0x74636b
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 20
-	li $a2, 0xffe0ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 20
-	li $a2, 0xf2cbff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 20
-	li $a2, 0xc49dd6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 20
-	li $a2, 0xaf8ccc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 20
-	li $a2, 0xac92db
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 20
-	li $a2, 0xaa9ce7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 20
-	li $a2, 0x9e9ddf
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 20
-	li $a2, 0x8d96cd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 20
-	li $a2, 0xa3b2dd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 20
-	li $a2, 0x9caad1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 20
-	li $a2, 0xb2b6e3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 20
-	li $a2, 0xc8caf0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 20
-	li $a2, 0xc3c5d4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 20
-	li $a2, 0xc8c9ce
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 20
-	li $a2, 0xcccfd8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 20
-	li $a2, 0xc8cbdc
+	li $a2, 0xfeedbb
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 20
-	li $a2, 0xb2b3d2
+	li $a2, 0xfdc937
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 20
-	li $a2, 0xb5b9dc
+	li $a2, 0xfee9b3
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 20
-	li $a2, 0x96a1bd
+	li $a2, 0xfffffc
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 20
-	li $a2, 0xf4ffff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 20
-	li $a2, 0xdde6e3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 20
-	li $a2, 0xc3d3d3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 20
-	li $a2, 0xb9dbf6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 20
-	li $a2, 0xbfebff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 20
-	li $a2, 0xb5dcff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 20
-	li $a2, 0xadd7fd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 20
-	li $a2, 0xb3e5fe
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 20
-	li $a2, 0xb2dbe1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 20
-	li $a2, 0xe0ecde
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 20
-	li $a2, 0xf4eed6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 20
-	li $a2, 0xcbbaaa
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 20
-	li $a2, 0x695244
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 24
-	li $a2, 0xfee1e6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 24
-	li $a2, 0xfff4f9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 24
-	li $a2, 0xedd0d5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 24
-	li $a2, 0xb198ab
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 24
-	li $a2, 0xa493bd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 24
-	li $a2, 0xa6a2d4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 24
-	li $a2, 0xa9b7de
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 24
-	li $a2, 0x9eb5d7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 24
-	li $a2, 0xaec4e9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 24
-	li $a2, 0xa4b2d7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 24
-	li $a2, 0xcacaec
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 24
-	li $a2, 0xccc4dc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 24
-	li $a2, 0xeadde7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 24
-	li $a2, 0xe7d8dd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 24
-	li $a2, 0xdcd1d5
+	li $a2, 0xfffefc
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 24
-	li $a2, 0xdcd6e0
+	li $a2, 0xfef4d4
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 24
-	li $a2, 0xd3d8ec
+	li $a2, 0xfccd46
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 24
-	li $a2, 0xb5c1d9
+	li $a2, 0xfeeebf
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 24
-	li $a2, 0xaab9d0
+	li $a2, 0xfffefb
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 24
-	li $a2, 0xbecbde
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 24
-	li $a2, 0xebf5ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 24
-	li $a2, 0xdcebfe
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 24
-	li $a2, 0xbddaff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 24
-	li $a2, 0xbae0ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 24
-	li $a2, 0xb2dafd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 24
-	li $a2, 0xafd8f4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 24
-	li $a2, 0xc3f0ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 24
-	li $a2, 0xb8d8e3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 24
-	li $a2, 0xb1b3ae
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 24
-	li $a2, 0xd9c9b0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 24
-	li $a2, 0xd5bc86
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 24
-	li $a2, 0x846725
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 28
-	li $a2, 0xf3d6c4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 28
-	li $a2, 0xffe9d4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 28
-	li $a2, 0xfde2cd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 28
-	li $a2, 0xbfa8a2
+	li $a2, 0xaabce3
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 28
-	li $a2, 0xa395ae
+	li $a2, 0xfefeff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 28
-	li $a2, 0xb7b6d8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 28
-	li $a2, 0xbdcfe7
+	li $a2, 0xfaf9fa
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 28
-	li $a2, 0x7892a9
+	li $a2, 0xb0dd9d
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 28
-	li $a2, 0x9bb2d4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 28
-	li $a2, 0xa9b6d8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 28
-	li $a2, 0xccc8e1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 28
-	li $a2, 0xaa99ab
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 28
-	li $a2, 0xa38a90
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 28
-	li $a2, 0xfee4e5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 28
-	li $a2, 0xf4dfde
+	li $a2, 0xfccd46
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 28
-	li $a2, 0xb9adaf
+	li $a2, 0xfcca3a
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 28
-	li $a2, 0xacabb9
+	li $a2, 0xfdcb3c
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 28
-	li $a2, 0xccd3e6
+	li $a2, 0xfccb3e
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 28
-	li $a2, 0xb1bcd2
+	li $a2, 0xfcd152
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 28
-	li $a2, 0xc7cfe6
+	li $a2, 0xfffefb
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 28
-	li $a2, 0xe7e9ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 28
-	li $a2, 0xcbd0e6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 28
-	li $a2, 0xaab8d3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 28
-	li $a2, 0xa5bfda
+	li $a2, 0xfff8f1
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 28
-	li $a2, 0xb1d5ef
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 28
-	li $a2, 0xb5def4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 28
-	li $a2, 0xa6c9df
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 28
-	li $a2, 0xc5d9e4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 28
-	li $a2, 0xc2bdb7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 28
-	li $a2, 0xcbb699
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 28
-	li $a2, 0xd0b57e
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 28
-	li $a2, 0xad8e4b
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 32
-	li $a2, 0xffefda
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 32
-	li $a2, 0xf9d5bd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 32
-	li $a2, 0xffe1c8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 32
-	li $a2, 0xc8aba3
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 32
-	li $a2, 0xe7d4ea
+	li $a2, 0xf0bcc3
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 32
-	li $a2, 0xeae4ff
+	li $a2, 0xf8f7f9
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 32
-	li $a2, 0xb0bfd6
+	li $a2, 0xf6b77d
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 32
-	li $a2, 0xa2b8cf
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 32
-	li $a2, 0x7f8fb0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 32
-	li $a2, 0xb6bcdc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 32
-	li $a2, 0xccc0d8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 32
-	li $a2, 0xd3bbc9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 32
-	li $a2, 0xe3c3c6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 32
-	li $a2, 0xffefea
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 32
-	li $a2, 0xffe8e0
+	li $a2, 0xfffffe
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 32
-	li $a2, 0xd3bbb9
+	li $a2, 0xfefbf2
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 32
-	li $a2, 0xab9ba8
+	li $a2, 0xfefaee
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 32
-	li $a2, 0xd4cae2
+	li $a2, 0xfffbf2
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 32
-	li $a2, 0x9f9fbb
+	li $a2, 0xfffefb
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 32
-	li $a2, 0xb5b5d1
+	li $a2, 0xfffefd
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 32
-	li $a2, 0xe1d7f0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 32
-	li $a2, 0xd5c7d4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 32
-	li $a2, 0xc9bcb3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 32
-	li $a2, 0x888981
+	li $a2, 0xe2ae84
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 32
-	li $a2, 0x809caa
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 32
-	li $a2, 0xb1d3ee
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 32
-	li $a2, 0xd5e9ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 32
-	li $a2, 0xccd0d9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 32
-	li $a2, 0xb4a890
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 32
-	li $a2, 0xc7b08e
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 32
-	li $a2, 0xe0c5b0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 32
-	li $a2, 0xa98d7f
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 36
-	li $a2, 0xedbaa7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 36
-	li $a2, 0xfdcdb9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 36
-	li $a2, 0xffdecd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 36
-	li $a2, 0xbc9995
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 36
-	li $a2, 0xf5ddf3
+	li $a2, 0xfdfdfd
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 36
-	li $a2, 0xd8cfee
+	li $a2, 0xefbabf
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 36
-	li $a2, 0xa3aac4
+	li $a2, 0xfefdfc
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 36
-	li $a2, 0xafbfd6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 36
-	li $a2, 0x8a95b1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 36
-	li $a2, 0xa8a9c5
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 36
-	li $a2, 0xdfcfe9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 36
-	li $a2, 0xffe6f7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 36
-	li $a2, 0xffe5e6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 36
-	li $a2, 0xfad9d2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 36
-	li $a2, 0xffece1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 36
-	li $a2, 0xffe8e4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 36
-	li $a2, 0xedd6e6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 36
-	li $a2, 0xcebfd4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 36
-	li $a2, 0xbfb7cc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 36
-	li $a2, 0xc1baca
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 36
-	li $a2, 0xc0b0bb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 36
-	li $a2, 0xe5cdcd
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 36
-	li $a2, 0xe0c0b1
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 36
-	li $a2, 0xa28e85
+	li $a2, 0xfbf5f0
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 36
-	li $a2, 0xafb8c9
+	li $a2, 0xfffffe
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 36
-	li $a2, 0xc3d5eb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 36
-	li $a2, 0xc1c4cb
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 36
-	li $a2, 0xc2b8ac
+	li $a2, 0xfdfbfb
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 36
-	li $a2, 0xd3bf9a
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 36
-	li $a2, 0xecd2af
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 36
-	li $a2, 0xe3c7bb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 36
-	li $a2, 0xc2a6a5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 40
-	li $a2, 0xe09c91
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 40
-	li $a2, 0xffcfc6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 40
-	li $a2, 0xfdc3c1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 40
-	li $a2, 0xcb9ea5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 40
-	li $a2, 0xfcdcf3
+	li $a2, 0xfdfdfe
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 40
-	li $a2, 0xc1b0d0
+	li $a2, 0xb7c3e3
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 40
-	li $a2, 0xa9a8c7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 40
-	li $a2, 0xcad0ea
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 40
-	li $a2, 0xdce1f5
+	li $a2, 0xbbcbf6
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 40
-	li $a2, 0xc4c2d7
+	li $a2, 0xf0b4bb
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 40
-	li $a2, 0xc6b5d5
+	li $a2, 0xe2becf
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 40
-	li $a2, 0xe7cfe7
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 40
-	li $a2, 0xfff7fa
+	li $a2, 0xacdd95
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 40
-	li $a2, 0xceb6ac
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 40
-	li $a2, 0xd0bcb3
+	li $a2, 0xb1c0e5
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 40
-	li $a2, 0xfff2f2
+	li $a2, 0xfafbf9
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 40
-	li $a2, 0xc2b1c1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 40
-	li $a2, 0xc9bdcb
+	li $a2, 0xb3c5ef
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 40
-	li $a2, 0xe3d9d8
+	li $a2, 0xfdfdfd
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 40
-	li $a2, 0xd3c9bd
+	li $a2, 0xf1b076
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 40
-	li $a2, 0xb4a995
+	li $a2, 0xfffdfb
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 40
-	li $a2, 0xcbb5a7
+	li $a2, 0xaabce3
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 40
-	li $a2, 0xdfb6be
+	li $a2, 0xfcfbfb
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 40
-	li $a2, 0xebc3dd
+	li $a2, 0xbadb9f
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 40
-	li $a2, 0xd4c5e6
+	li $a2, 0xfbfdf9
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 40
-	li $a2, 0xd2ccd6
+	li $a2, 0xefb1b8
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 40
-	li $a2, 0xd4c59e
+	li $a2, 0xedb9bf
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 40
-	li $a2, 0xe2cc92
+	li $a2, 0xe6bbc5
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 40
-	li $a2, 0xf5d8ac
+	li $a2, 0xfbf8f8
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 40
-	li $a2, 0xfff9d6
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 40
-	li $a2, 0xffebd0
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 40
-	li $a2, 0xc9a690
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 44
-	li $a2, 0xf1a49c
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 44
-	li $a2, 0xe09995
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 44
-	li $a2, 0xce9196
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 44
-	li $a2, 0xe2b4c1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 44
-	li $a2, 0xe0c0d7
+	li $a2, 0xfdfdfd
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 44
-	li $a2, 0xcfbdd7
+	li $a2, 0xf5ae6f
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 44
-	li $a2, 0xd2cce8
+	li $a2, 0xfffefe
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 44
-	li $a2, 0xdbd9ef
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 44
-	li $a2, 0xe9e7f2
+	li $a2, 0xc2cdf2
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 44
-	li $a2, 0xe0dae8
+	li $a2, 0xfcf7f9
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 44
-	li $a2, 0x9d8ead
+	li $a2, 0xc2cdf2
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 44
-	li $a2, 0x76627e
+	li $a2, 0xfefdfd
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 44
-	li $a2, 0xd7c4c8
+	li $a2, 0xdee4e4
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 44
-	li $a2, 0xffefe7
+	li $a2, 0xfdfefd
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 44
-	li $a2, 0xedded9
+	li $a2, 0xeeb7b8
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 44
-	li $a2, 0xb6abaf
+	li $a2, 0xfbfcfa
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 44
-	li $a2, 0xb2afc4
+	li $a2, 0xfefeff
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 44
-	li $a2, 0xc7c4d7
+	li $a2, 0xd9eadb
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 44
-	li $a2, 0xc9c4be
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 44
-	li $a2, 0xbab5a1
+	li $a2, 0xecc2c8
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 44
-	li $a2, 0xaaa58f
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 44
-	li $a2, 0x9d8f84
+	li $a2, 0xe6eae6
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 44
-	li $a2, 0xdab8c8
+	li $a2, 0xfcfcfc
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 44
-	li $a2, 0xffd9f4
+	li $a2, 0xb9c3dd
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 44
-	li $a2, 0xedcde2
+	li $a2, 0xfffefd
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 44
-	li $a2, 0xe8cac0
+	li $a2, 0xd1c3d6
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 44
-	li $a2, 0xe4c082
+	li $a2, 0xfcf9fa
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 44
-	li $a2, 0xefc978
+	li $a2, 0xadde92
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 44
-	li $a2, 0xf9d395
+	li $a2, 0xfaf7f7
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 44
-	li $a2, 0xffefbe
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 44
-	li $a2, 0xffe3bb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 44
-	li $a2, 0xc99772
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 48
-	li $a2, 0xffb5aa
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 48
-	li $a2, 0xd4918b
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 48
-	li $a2, 0xcb979b
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 48
-	li $a2, 0xcfa9b6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 48
-	li $a2, 0xdfc8dc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 48
-	li $a2, 0xede0f4
+	li $a2, 0xb4c1e3
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 48
-	li $a2, 0xaba2b3
+	li $a2, 0xfefefd
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 48
-	li $a2, 0xd7d1db
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 48
-	li $a2, 0xe7e2df
+	li $a2, 0xaedf91
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 48
-	li $a2, 0xe0d7dc
+	li $a2, 0xc1cbee
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 48
-	li $a2, 0xcebfdc
+	li $a2, 0xf1b3ba
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 48
-	li $a2, 0xb09fbf
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 48
-	li $a2, 0x8e818a
+	li $a2, 0xf3f5f4
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 48
-	li $a2, 0x978c8a
+	li $a2, 0xbbcbe0
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 48
-	li $a2, 0xbdb3b1
+	li $a2, 0xb7d8b7
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 48
-	li $a2, 0xb8b6c1
+	li $a2, 0xfefffe
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 48
-	li $a2, 0xcbd8fb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 48
-	li $a2, 0xacbbdc
+	li $a2, 0xf7f8fc
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 48
-	li $a2, 0xc4c9cc
+	li $a2, 0xeeae76
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 48
-	li $a2, 0xc7cac3
+	li $a2, 0xf6f4f6
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 48
-	li $a2, 0xa5aab0
+	li $a2, 0xc6cee7
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 48
-	li $a2, 0x8a8d96
+	li $a2, 0xfbf9f9
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 48
-	li $a2, 0xeee3eb
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 48
-	li $a2, 0xf2d8d7
+	li $a2, 0xf7a65b
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 48
-	li $a2, 0xe0b7a3
+	li $a2, 0xfefcfb
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 48
-	li $a2, 0xefbc91
+	li $a2, 0xc4d7b1
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 48
-	li $a2, 0xdaa15e
+	li $a2, 0xfefdfd
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 48
-	li $a2, 0xeab160
+	li $a2, 0xb4c5e3
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 48
-	li $a2, 0xffd27d
+	li $a2, 0xfcfbfb
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 48
-	li $a2, 0xe6b569
+	li $a2, 0xfdfbfb
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 48
-	li $a2, 0xe09f69
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 48
-	li $a2, 0xc0774c
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 52
-	li $a2, 0xfdbab4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 52
-	li $a2, 0xdda1a1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 52
-	li $a2, 0xddb4bc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 52
-	li $a2, 0xf2d7e6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 52
-	li $a2, 0xbbadc6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 52
-	li $a2, 0xa29aaf
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 52
-	li $a2, 0xaaa3ab
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 52
-	li $a2, 0x9e9694
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 52
-	li $a2, 0xaca299
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 52
-	li $a2, 0xc4b6b6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 52
-	li $a2, 0xe5d6ed
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 52
-	li $a2, 0xfff8ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 52
-	li $a2, 0xeae0eb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 52
-	li $a2, 0xebe2e3
+	li $a2, 0xfefffe
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 52
-	li $a2, 0xfdf3f1
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 52
-	li $a2, 0xfefbff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 52
-	li $a2, 0xd6dcfe
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 52
-	li $a2, 0xa8b1d2
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 52
-	li $a2, 0xe2e5ec
+	li $a2, 0xfafbfc
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 52
-	li $a2, 0xdddddf
+	li $a2, 0xfdfcfd
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 52
-	li $a2, 0xb2b5c6
+	li $a2, 0xfcfbfb
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 52
-	li $a2, 0xa2a4b9
+	li $a2, 0xfdfdfd
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 52
-	li $a2, 0xedebf9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 52
-	li $a2, 0xecdad8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 52
-	li $a2, 0xd2a68b
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 52
-	li $a2, 0xeab080
+	li $a2, 0xf8f4f4
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 52
-	li $a2, 0xe2a668
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 52
-	li $a2, 0xf9c177
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 52
-	li $a2, 0xffda87
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 52
-	li $a2, 0xf2c479
+	li $a2, 0xfdfcfc
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 52
-	li $a2, 0xdfa273
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 52
-	li $a2, 0xaf6d4b
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 56
-	li $a2, 0xf1b9c2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 56
-	li $a2, 0xcc9ea8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 56
-	li $a2, 0xf5dae9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 56
-	li $a2, 0xdcd0e6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 56
-	li $a2, 0x938fb4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 56
-	li $a2, 0x8686a2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 56
-	li $a2, 0x636162
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 56
-	li $a2, 0xbab4a8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 56
-	li $a2, 0xe7dad1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 56
-	li $a2, 0xdfcfcf
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 56
-	li $a2, 0xcdbccc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 56
-	li $a2, 0xf1e4f6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 56
-	li $a2, 0xfff9ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 56
-	li $a2, 0xfffbff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 56
-	li $a2, 0xfffcf6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 56
-	li $a2, 0xfff8f5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 56
-	li $a2, 0xf0dce8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 56
-	li $a2, 0xd6c1d2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 56
-	li $a2, 0xe5d3df
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 56
-	li $a2, 0xcbbec7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 56
-	li $a2, 0xcabecc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 56
-	li $a2, 0xcbc2d7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 56
-	li $a2, 0xcec6eb
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 56
-	li $a2, 0xcebbd7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 56
-	li $a2, 0xcca3a1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 56
-	li $a2, 0xdcaa8f
+	li $a2, 0xfefefe
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 56
-	li $a2, 0xd9b180
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 56
-	li $a2, 0xe1be86
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 56
-	li $a2, 0xd7b784
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 56
-	li $a2, 0xf0d3ab
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 56
-	li $a2, 0xb79b85
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 56
-	li $a2, 0x73574b
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 0
 	li $a1, 60
-	li $a2, 0xffdbe9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 4
 	li $a1, 60
-	li $a2, 0xffe2f1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 8
 	li $a1, 60
-	li $a2, 0xd2bfd2
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 12
 	li $a1, 60
-	li $a2, 0xdedaf3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 16
 	li $a1, 60
-	li $a2, 0xa1a2ce
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 20
 	li $a1, 60
-	li $a2, 0x727797
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 24
 	li $a1, 60
-	li $a2, 0x5e5f5a
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 28
 	li $a1, 60
-	li $a2, 0xded9c6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 32
 	li $a1, 60
-	li $a2, 0xfceee5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 36
 	li $a1, 60
-	li $a2, 0xe3d1d1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 40
 	li $a1, 60
-	li $a2, 0xdacad5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 44
 	li $a1, 60
-	li $a2, 0xfff5ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 48
 	li $a1, 60
-	li $a2, 0xfff6ff
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 52
 	li $a1, 60
-	li $a2, 0xfff8fe
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 56
 	li $a1, 60
-	li $a2, 0xfff1ea
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 60
 	li $a1, 60
-	li $a2, 0xf5ded8
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 64
 	li $a1, 60
-	li $a2, 0xe4c1c5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 68
 	li $a1, 60
-	li $a2, 0xf5d1db
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 72
 	li $a1, 60
-	li $a2, 0xefd3e1
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 76
 	li $a1, 60
-	li $a2, 0xe4d0dc
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 80
 	li $a1, 60
-	li $a2, 0xf2dee9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 84
 	li $a1, 60
-	li $a2, 0xf3e4f9
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 88
 	li $a1, 60
-	li $a2, 0xcec5f4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 92
 	li $a1, 60
-	li $a2, 0xbba9d3
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 96
 	li $a1, 60
-	li $a2, 0xedc5ce
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 100
 	li $a1, 60
-	li $a2, 0xffd9c6
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 104
 	li $a1, 60
-	li $a2, 0xfcdcb5
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 108
 	li $a1, 60
-	li $a2, 0xffe7b7
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 112
 	li $a1, 60
-	li $a2, 0xf1d7b4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 116
 	li $a1, 60
-	li $a2, 0xffedd4
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 120
 	li $a1, 60
-	li $a2, 0x80716a
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	li $a0, 124
 	li $a1, 60
-	li $a2, 0x524847
+	li $a2, 0xffffff
 	jal DRAW_SQUARE
 	lw $ra, 0($sp)
 	addi $sp, $sp, 4
 	jr $ra
+	
+ANIMATION_YOU_WIN_SPARKLE:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	li $a0, 0
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 0
+	li $a2, 0xfff8e4
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 0
+	li $a2, 0xfdf1ce
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 0
+	li $a2, 0xfeedbd
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 0
+	li $a2, 0xfff5da
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 0
+	li $a2, 0xfef0ca
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 0
+	li $a2, 0xfef9eb
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 0
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 4
+	li $a2, 0xfceec6
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 4
+	li $a2, 0xfff4d3
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 4
+	li $a2, 0xfdce4b
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 4
+	li $a2, 0xfcc31f
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 4
+	li $a2, 0xfdc31e
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 4
+	li $a2, 0xfcc422
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 4
+	li $a2, 0xfcc425
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 4
+	li $a2, 0xfdeab3
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 4
+	li $a2, 0xfffffe
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 4
+	li $a2, 0xfaeab9
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 8
+	li $a2, 0xfff5da
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 8
+	li $a2, 0xfcc731
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 8
+	li $a2, 0xfcc527
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 8
+	li $a2, 0xfcc21b
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 8
+	li $a2, 0xfcc21c
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 8
+	li $a2, 0xfdc21e
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 8
+	li $a2, 0xfeeab0
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 8
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 12
+	li $a2, 0xfef9ec
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 12
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 12
+	li $a2, 0xfeefc2
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 12
+	li $a2, 0xfcc835
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 12
+	li $a2, 0xfcc72b
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 12
+	li $a2, 0xfcc21b
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 12
+	li $a2, 0xfef0c7
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 12
+	li $a2, 0xfffcf3
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 16
+	li $a2, 0xfffefb
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 16
+	li $a2, 0xfff7e1
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 16
+	li $a2, 0xfcc830
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 16
+	li $a2, 0xfcc423
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 16
+	li $a2, 0xfbc628
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 16
+	li $a2, 0xfeecb7
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 16
+	li $a2, 0xfffffe
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 16
+	li $a2, 0xfffffe
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 16
+	li $a2, 0xfefefc
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 20
+	li $a2, 0xfcf1d0
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 20
+	li $a2, 0xfef7e6
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 20
+	li $a2, 0xfeedbb
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 20
+	li $a2, 0xfdc937
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 20
+	li $a2, 0xfee9b3
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 20
+	li $a2, 0xfffffc
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 20
+	li $a2, 0xfdf7e7
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 20
+	li $a2, 0xfffefc
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 24
+	li $a2, 0xfefbf3
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 24
+	li $a2, 0xfcecc1
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 24
+	li $a2, 0xfffefc
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 24
+	li $a2, 0xfef4d4
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 24
+	li $a2, 0xfccd46
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 24
+	li $a2, 0xfeeebf
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 24
+	li $a2, 0xfffefb
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 24
+	li $a2, 0xfbedc3
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 28
+	li $a2, 0xaabce3
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 28
+	li $a2, 0xfefeff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 28
+	li $a2, 0xfaf9fa
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 28
+	li $a2, 0xb0dd9d
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 28
+	li $a2, 0xfefbf0
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 28
+	li $a2, 0xfccd46
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 28
+	li $a2, 0xfcca3a
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 28
+	li $a2, 0xfdcb3c
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 28
+	li $a2, 0xfccb3e
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 28
+	li $a2, 0xfcd152
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 28
+	li $a2, 0xfffefb
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 28
+	li $a2, 0xfff8f1
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 32
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 32
+	li $a2, 0xf0bcc3
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 32
+	li $a2, 0xf8f7f9
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 32
+	li $a2, 0xf6b77d
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 32
+	li $a2, 0xfffefc
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 32
+	li $a2, 0xfffffe
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 32
+	li $a2, 0xfefbf2
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 32
+	li $a2, 0xfefaee
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 32
+	li $a2, 0xfffbf2
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 32
+	li $a2, 0xfffefb
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 32
+	li $a2, 0xfffefd
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 32
+	li $a2, 0xfbeab8
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 32
+	li $a2, 0xe2ae84
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 32
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 36
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 36
+	li $a2, 0xefbabf
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 36
+	li $a2, 0xfefdfc
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 36
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 36
+	li $a2, 0xfbecc2
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 36
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 36
+	li $a2, 0xfef9eb
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 36
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 36
+	li $a2, 0xfbf5f0
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 36
+	li $a2, 0xfffffe
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 36
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 36
+	li $a2, 0xfdfbfb
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 36
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 40
+	li $a2, 0xfdfdfe
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 40
+	li $a2, 0xb7c3e3
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 40
+	li $a2, 0xbbcbf6
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 40
+	li $a2, 0xf0b4bb
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 40
+	li $a2, 0xe2becf
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 40
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 40
+	li $a2, 0xacdd95
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 40
+	li $a2, 0xb1c0e5
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 40
+	li $a2, 0xfafbf9
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 40
+	li $a2, 0xb3c5ef
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 40
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 40
+	li $a2, 0xf1b076
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 40
+	li $a2, 0xfffdfb
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 40
+	li $a2, 0xaabce3
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 40
+	li $a2, 0xfcfbfb
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 40
+	li $a2, 0xbadb9f
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 40
+	li $a2, 0xfbfdf9
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 40
+	li $a2, 0xefb1b8
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 40
+	li $a2, 0xedb9bf
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 40
+	li $a2, 0xe6bbc5
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 40
+	li $a2, 0xfbf8f8
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 40
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 44
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 44
+	li $a2, 0xf5ae6f
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 44
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 44
+	li $a2, 0xc2cdf2
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 44
+	li $a2, 0xfcf7f9
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 44
+	li $a2, 0xc2cdf2
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 44
+	li $a2, 0xfefdfd
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 44
+	li $a2, 0xdee4e4
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 44
+	li $a2, 0xfdfefd
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 44
+	li $a2, 0xeeb7b8
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 44
+	li $a2, 0xfbfcfa
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 44
+	li $a2, 0xfefeff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 44
+	li $a2, 0xd9eadb
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 44
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 44
+	li $a2, 0xecc2c8
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 44
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 44
+	li $a2, 0xe6eae6
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 44
+	li $a2, 0xfcfcfc
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 44
+	li $a2, 0xb9c3dd
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 44
+	li $a2, 0xfffefd
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 44
+	li $a2, 0xd1c3d6
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 44
+	li $a2, 0xfcf9fa
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 44
+	li $a2, 0xadde92
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 44
+	li $a2, 0xfaf7f7
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 44
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 48
+	li $a2, 0xb4c1e3
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 48
+	li $a2, 0xfefefd
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 48
+	li $a2, 0xaedf91
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 48
+	li $a2, 0xc1cbee
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 48
+	li $a2, 0xf1b3ba
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 48
+	li $a2, 0xf3f5f4
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 48
+	li $a2, 0xbbcbe0
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 48
+	li $a2, 0xb7d8b7
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 48
+	li $a2, 0xfefffe
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 48
+	li $a2, 0xf7f8fc
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 48
+	li $a2, 0xeeae76
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 48
+	li $a2, 0xf6f4f6
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 48
+	li $a2, 0xc6cee7
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 48
+	li $a2, 0xfbf9f9
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 48
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 48
+	li $a2, 0xf7a65b
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 48
+	li $a2, 0xfefcfb
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 48
+	li $a2, 0xc4d7b1
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 48
+	li $a2, 0xfefdfd
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 48
+	li $a2, 0xb4c5e3
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 48
+	li $a2, 0xfcfbfb
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 48
+	li $a2, 0xfdfbfb
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 52
+	li $a2, 0xfefffe
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 52
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 52
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 52
+	li $a2, 0xfafbfc
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 52
+	li $a2, 0xfdfcfd
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 52
+	li $a2, 0xfcfbfb
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 52
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 52
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 52
+	li $a2, 0xf8f4f4
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 52
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 52
+	li $a2, 0xfdfcfc
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 56
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4
+	jr $ra
+
+ANIMATION_YOU_LOSE:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	li $a0, 0
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 0
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 4
+	li $a2, 0xf9eded
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 4
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 4
+	li $a2, 0xbf403d
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 4
+	li $a2, 0xbe3e3b
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 4
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 4
+	li $a2, 0xf7e9e8
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 8
+	li $a2, 0xfbf3f2
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 8
+	li $a2, 0xbd403c
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 8
+	li $a2, 0xbe3f3c
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 8
+	li $a2, 0xbe3f3c
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 8
+	li $a2, 0xf0d2d1
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 8
+	li $a2, 0xbc3b38
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 8
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 8
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 8
+	li $a2, 0xf3dcd9
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 8
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 12
+	li $a2, 0xbf413e
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 16
+	li $a2, 0xf9eeee
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 16
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 16
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 16
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 16
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 16
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 16
+	li $a2, 0xf4dddc
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 20
+	li $a2, 0xfbf2f2
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 20
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 20
+	li $a2, 0xbd3d39
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 20
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 20
+	li $a2, 0xf9edec
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 20
+	li $a2, 0xfffffc
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 24
+	li $a2, 0x313176
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 24
+	li $a2, 0x872e6f
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 24
+	li $a2, 0xf4e0e0
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 24
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 24
+	li $a2, 0xf8e9e8
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 24
+	li $a2, 0x542e73
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 28
+	li $a2, 0x4f2e6b
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 28
+	li $a2, 0xfefeff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 28
+	li $a2, 0xfaf9fa
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 28
+	li $a2, 0x972a62
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 28
+	li $a2, 0xfaf2f6
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 28
+	li $a2, 0xfcf4f4
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 28
+	li $a2, 0x772963
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 28
+	li $a2, 0xfffefc
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 32
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 32
+	li $a2, 0x323276
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 32
+	li $a2, 0xf8f7f9
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 32
+	li $a2, 0x552f73
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 32
+	li $a2, 0xfcfcfc
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 32
+	li $a2, 0x92285f
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 32
+	li $a2, 0x522d70
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 32
+	li $a2, 0x313175
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 32
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 32
+	li $a2, 0x542e73
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 32
+	li $a2, 0xfffffd
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 32
+	li $a2, 0x812b6a
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 32
+	li $a2, 0xfffefd
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 32
+	li $a2, 0xa62d6c
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 32
+	li $a2, 0x303073
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 32
+	li $a2, 0x9b2a65
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 32
+	li $a2, 0x7d2a66
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 32
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 32
+	li $a2, 0x532e71
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 32
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 32
+	li $a2, 0x802253
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 32
+	li $a2, 0x522d70
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 32
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 36
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 36
+	li $a2, 0x742b5f
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 36
+	li $a2, 0xfefdfc
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 36
+	li $a2, 0x313175
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 36
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 36
+	li $a2, 0xa12b69
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 36
+	li $a2, 0x7d2a66
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 36
+	li $a2, 0x313176
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 36
+	li $a2, 0x872f5d
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 36
+	li $a2, 0x992963
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 36
+	li $a2, 0x532e72
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 36
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 36
+	li $a2, 0x562f76
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 36
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 40
+	li $a2, 0xfdfdfe
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 40
+	li $a2, 0x313176
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 40
+	li $a2, 0x8f2a65
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 40
+	li $a2, 0x8e2a5e
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 40
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 40
+	li $a2, 0x552f75
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 40
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 40
+	li $a2, 0xfafbf9
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 40
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 40
+	li $a2, 0xfffdfb
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 40
+	li $a2, 0x642152
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 40
+	li $a2, 0x502c6e
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 40
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 40
+	li $a2, 0x802b69
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 40
+	li $a2, 0x2f2f70
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 40
+	li $a2, 0x532e73
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 40
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 40
+	li $a2, 0x832d6b
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 44
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 44
+	li $a2, 0x552f74
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 44
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 44
+	li $a2, 0x762861
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 44
+	li $a2, 0xfcf7f9
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 44
+	li $a2, 0x502d6e
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 44
+	li $a2, 0xfefdfd
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 44
+	li $a2, 0x7e2a67
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 44
+	li $a2, 0xfdfefd
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 44
+	li $a2, 0x76204d
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 44
+	li $a2, 0xfbfcfa
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 44
+	li $a2, 0xfefeff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 44
+	li $a2, 0x512d71
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 44
+	li $a2, 0x313175
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 44
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 44
+	li $a2, 0x982963
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 44
+	li $a2, 0xfefffd
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 44
+	li $a2, 0x9d2a65
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 48
+	li $a2, 0x85316f
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 48
+	li $a2, 0xfefefd
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 48
+	li $a2, 0x72265e
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 48
+	li $a2, 0x842456
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 48
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 48
+	li $a2, 0x7b2150
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 48
+	li $a2, 0x502c6e
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 48
+	li $a2, 0x542e74
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 48
+	li $a2, 0xfefffe
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 48
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 48
+	li $a2, 0x313176
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 48
+	li $a2, 0x532e71
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 48
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 48
+	li $a2, 0x7a2a67
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 48
+	li $a2, 0x7f2453
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 48
+	li $a2, 0xa32c6a
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 48
+	li $a2, 0x323278
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 48
+	li $a2, 0x313177
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 48
+	li $a2, 0x832355
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 48
+	li $a2, 0x822c6a
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 52
+	li $a2, 0xfbf7fa
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 52
+	li $a2, 0xfefffe
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 52
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 52
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 52
+	li $a2, 0xfefdfd
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 52
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 52
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 52
+	li $a2, 0xfdfcfc
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4
+	jr $ra
+
+ANIMATION_YOU_LOSE_BROKEN:
+	addi $sp, $sp, -4
+	sw $ra, 0($sp)
+	li $a0, 0
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 0
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 0
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 4
+	li $a2, 0xf9eded
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 4
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 4
+	li $a2, 0xbf403d
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 4
+	li $a2, 0xbd3e3b
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 4
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 4
+	li $a2, 0xf7e9e8
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 4
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 8
+	li $a2, 0xfbf3f2
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 8
+	li $a2, 0xbd403c
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 8
+	li $a2, 0xbe3f3c
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 8
+	li $a2, 0xbe3f3c
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 8
+	li $a2, 0xf0d2d1
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 8
+	li $a2, 0xfcf8f8
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 8
+	li $a2, 0xbc3b38
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 8
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 8
+	li $a2, 0xbe3d38
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 8
+	li $a2, 0xf3dbda
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 8
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 12
+	li $a2, 0xbd3d39
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 12
+	li $a2, 0xbe3e3a
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 12
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 12
+	li $a2, 0xf0d5d4
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 12
+	li $a2, 0xbe3d39
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 12
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 12
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 16
+	li $a2, 0xf9eeee
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 16
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 16
+	li $a2, 0xbd3d39
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 16
+	li $a2, 0xf4dfde
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 16
+	li $a2, 0xbf423f
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 16
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 16
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 16
+	li $a2, 0xf4dddc
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 16
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 20
+	li $a2, 0xfbf2f2
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 20
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 20
+	li $a2, 0xc9615e
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 20
+	li $a2, 0xe9bfbe
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 20
+	li $a2, 0xbd3b38
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 20
+	li $a2, 0xf9ede9
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 20
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 24
+	li $a2, 0x313176
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 24
+	li $a2, 0x872e6f
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 24
+	li $a2, 0xf4e0e0
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 24
+	li $a2, 0xedc9c8
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 24
+	li $a2, 0xf8e9e8
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 24
+	li $a2, 0xbe3f3c
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 24
+	li $a2, 0xf8e9e8
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 24
+	li $a2, 0x542e73
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 24
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 28
+	li $a2, 0x4f2e6b
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 28
+	li $a2, 0xfefeff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 28
+	li $a2, 0xfaf9fa
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 28
+	li $a2, 0x972a62
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 28
+	li $a2, 0xfaf2f6
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 28
+	li $a2, 0xfcf4f4
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 28
+	li $a2, 0xf9ebeb
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 28
+	li $a2, 0x772963
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 28
+	li $a2, 0xfffefc
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 28
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 32
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 32
+	li $a2, 0x323276
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 32
+	li $a2, 0xf8f7f9
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 32
+	li $a2, 0x552f73
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 32
+	li $a2, 0xfcfcfc
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 32
+	li $a2, 0x92285f
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 32
+	li $a2, 0x522d70
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 32
+	li $a2, 0x313175
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 32
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 32
+	li $a2, 0x542e73
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 32
+	li $a2, 0xfffffd
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 32
+	li $a2, 0x812b6a
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 32
+	li $a2, 0xfffefd
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 32
+	li $a2, 0xa62d6c
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 32
+	li $a2, 0x303073
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 32
+	li $a2, 0x9b2a65
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 32
+	li $a2, 0x7d2a66
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 32
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 32
+	li $a2, 0x532e71
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 32
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 32
+	li $a2, 0x802253
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 32
+	li $a2, 0x522d70
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 32
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 32
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 36
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 36
+	li $a2, 0x742b5f
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 36
+	li $a2, 0xfefdfc
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 36
+	li $a2, 0x313175
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 36
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 36
+	li $a2, 0xa12b69
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 36
+	li $a2, 0x7d2a66
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 36
+	li $a2, 0x313176
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 36
+	li $a2, 0x872f5d
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 36
+	li $a2, 0x992963
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 36
+	li $a2, 0x532e72
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 36
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 36
+	li $a2, 0x562f76
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 36
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 36
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 40
+	li $a2, 0xfdfdfe
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 40
+	li $a2, 0x313176
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 40
+	li $a2, 0x8f2a65
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 40
+	li $a2, 0x8e2a5e
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 40
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 40
+	li $a2, 0x552f75
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 40
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 40
+	li $a2, 0xfafbf9
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 40
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 40
+	li $a2, 0xfffdfb
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 40
+	li $a2, 0x642152
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 40
+	li $a2, 0x502c6e
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 40
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 40
+	li $a2, 0x802b69
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 40
+	li $a2, 0x2f2f70
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 40
+	li $a2, 0x532e73
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 40
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 40
+	li $a2, 0x832d6b
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 40
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 44
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 44
+	li $a2, 0x552f74
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 44
+	li $a2, 0xfffefe
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 44
+	li $a2, 0x762861
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 44
+	li $a2, 0xfcf7f9
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 44
+	li $a2, 0x502d6e
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 44
+	li $a2, 0xfefdfd
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 44
+	li $a2, 0x7e2a67
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 44
+	li $a2, 0xfdfefd
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 44
+	li $a2, 0x76204d
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 44
+	li $a2, 0xfbfcfa
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 44
+	li $a2, 0xfefeff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 44
+	li $a2, 0x512d71
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 44
+	li $a2, 0x313175
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 44
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 44
+	li $a2, 0x982963
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 44
+	li $a2, 0xfefffd
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 44
+	li $a2, 0x9d2a65
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 44
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 48
+	li $a2, 0x85316f
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 48
+	li $a2, 0xfefefd
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 48
+	li $a2, 0x72265e
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 48
+	li $a2, 0x842456
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 48
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 48
+	li $a2, 0x7b2150
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 48
+	li $a2, 0x502c6e
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 48
+	li $a2, 0x542e74
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 48
+	li $a2, 0xfefffe
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 48
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 48
+	li $a2, 0x313176
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 48
+	li $a2, 0x532e71
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 48
+	li $a2, 0x323277
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 48
+	li $a2, 0x7a2a67
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 48
+	li $a2, 0x7f2453
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 48
+	li $a2, 0xa32c6a
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 48
+	li $a2, 0x323278
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 48
+	li $a2, 0x313177
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 48
+	li $a2, 0x832355
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 48
+	li $a2, 0x822c6a
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 48
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 52
+	li $a2, 0xfbf7fa
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 52
+	li $a2, 0xfefffe
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 52
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 52
+	li $a2, 0xfefefe
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 52
+	li $a2, 0xfefdfd
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 52
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 52
+	li $a2, 0xfdfdfd
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 52
+	li $a2, 0xfdfcfc
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 52
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 56
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 0
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 4
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 8
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 12
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 16
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 20
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 24
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 28
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 32
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 36
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 40
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 44
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 48
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 52
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 56
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 60
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 64
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 68
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 72
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 76
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 80
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 84
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 88
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 92
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 96
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 100
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 104
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 108
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 112
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 116
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 120
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	li $a0, 124
+	li $a1, 60
+	li $a2, 0xffffff
+	jal DRAW_SQUARE
+	lw $ra, 0($sp)
+	addi $sp, $sp, 4
+	jr $ra
+	
